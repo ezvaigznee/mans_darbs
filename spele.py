@@ -3,7 +3,7 @@ from random import randint
 
 def update_score(score, die_value):
     if die_value == 1:
-        return 0  
+        return 0 
     else:
         return score + die_value
 
@@ -14,6 +14,11 @@ def display_scoreboard(player_score, opponent_score):
     print(f"Pretinieka rezultāts: {opponent_score}")
     print("#" * 20)
     print()
+
+def print_with_effects(text, effects):
+    effect_string = "\033[" + ";".join(map(str, effects)) + "m"
+    reset_string = "\033[0m"
+    print(effect_string + text + reset_string)
 
 intro_message = """
        Laipni lūdzam 'Cūka', kauliņu spēlē!
@@ -34,7 +39,7 @@ opponent_score = 0
 while True:
     input(f"Uzspied 'Enter' lai mestu kauliņu {username}!\n")
     player_roll = randint(1, 6)
-    print(f"{username} uzmet {player_roll}")
+    print_with_effects(f"{username} uzmet {player_roll}", [33])  
 
     opponent_roll = randint(1, 6)
     print(f"Pretinieks uzmet {opponent_roll}")
@@ -45,8 +50,9 @@ while True:
     display_scoreboard(player_score, opponent_score)
     
     if player_score >= 30:
-        print(f"{username} uzvar!👑")
+        print_with_effects(f"{username} uzvar!👑", [1, 35, 4])  
         break
     elif opponent_score >= 30:
-        print("Pretinieks uzvar!👑")
+        print_with_effects("Pretinieks uzvar!👑", [1, 35, 4])  
         break
+
