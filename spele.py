@@ -1,21 +1,21 @@
 
-def update_score(rezultāts,die_value ):
- if die_value == 1:
-        return randint
- else:
-        return rezultāts + die_value
-
-Spēlētāja_rezultāts = 0
-Pretinieka_rezultāts = 0
 from random import randint
-def display_scoreboard(Spēlētāja_rezultāts, Pretinieka_rezultāts):
+
+def update_score(score, die_value):
+    if die_value == 1:
+        return 0  
+    else:
+        return score + die_value
+
+def display_scoreboard(player_score, opponent_score):
     print()
     print("#" * 20)
-    print(f"Spēlētja rezultāts: {Spēlētāja_rezultāts}")
-    print(f"Pretinieka rezultāts: {Pretinieka_rezultāts}")
+    print(f"Spēlētāja rezultāts: {player_score}")
+    print(f"Pretinieka rezultāts: {opponent_score}")
     print("#" * 20)
     print()
-uzruna = """
+
+intro_message = """
        Laipni lūdzam 'Cūka', kauliņu spēlē!
    
      Šajā spēlē lietotājs un pretinieks
@@ -25,24 +25,28 @@ uzruna = """
      to punktu pievienoto kauliņa vērtība. Pirmais
      spēlētājs, kurš sasniedz 30 punktus, uzvar!
 """
-print(uzruna)
+print(intro_message)
 username = input("Kā tevi sauc? ")
 
+player_score = 0
+opponent_score = 0
 
 while True:
     input(f"Uzspied 'Enter' lai mestu kauliņu {username}!\n")
-    spēlētājs = randint(1, 6)
-    print(f"{username} uzmet {spēlētājs}")
+    player_roll = randint(1, 6)
+    print(f"{username} uzmet {player_roll}")
 
-    dators = randint(1, 6)
-    print(f"Pretinieks uzmet {dators}")
-    Spēlētāja_rezultāts = update_score(Spēlētāja_rezultāts, spēlētājs)
-    Pretinieka_rezultāts = update_score(Pretinieka_rezultāts, dators)
-    display_scoreboard(Spēlētāja_rezultāts, Pretinieka_rezultāts)
+    opponent_roll = randint(1, 6)
+    print(f"Pretinieks uzmet {opponent_roll}")
+
+    player_score = update_score(player_score, player_roll)
+    opponent_score = update_score(opponent_score, opponent_roll)
+
+    display_scoreboard(player_score, opponent_score)
     
-    if Spēlētāja_rezultāts >= 30:
+    if player_score >= 30:
         print(f"{username} uzvar!👑")
         break
-    elif Pretinieka_rezultāts >= 30:
+    elif opponent_score >= 30:
         print("Pretinieks uzvar!👑")
-        break    
+        break
